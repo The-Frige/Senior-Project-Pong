@@ -11,8 +11,9 @@ void App::run()
 	while (mWindow.isOpen())
 	{
 		processWindowEvents();
-		player1.movePlayer();
-		player2.movePlayer();
+		player1.move();
+		player2.move();
+		ball.move(player1, player2);
 		render();
 	}
 }
@@ -65,6 +66,7 @@ void App::render()
 		mWindow.clear(sf::Color::Black);
 		player1.show(mWindow);
 		player2.show(mWindow); //Disable if gamestate is set to singleplayer
+		ball.show(mWindow);
 		mWindow.display();
 	}
 	//Debug code to see if gamestates are working

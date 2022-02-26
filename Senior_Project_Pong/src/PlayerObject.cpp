@@ -5,7 +5,7 @@ PlayerObject::PlayerObject(int num, float x, float y, float xpos, float ypos) : 
 	player.setPosition(xpos, ypos);
 }
 
-void PlayerObject::movePlayer()
+void PlayerObject::move()
 {
 	if(playerid == 0)
 	{
@@ -55,6 +55,7 @@ void PlayerObject::checkBoundaries()
 	if(player.getPosition().y <= -1.0f)
 	{
 		player.move(0.0f, 7.5f);
+		//std::cout << "touching" << std::endl;
 	}
 	else if(player.getPosition().y >= 530.0f)
 	{
