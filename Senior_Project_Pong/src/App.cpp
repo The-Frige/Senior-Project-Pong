@@ -4,6 +4,8 @@ App::GameState App::gamestate = Multiplayer;
 App::App() : mWindow(sf::VideoMode(800, 600), "Pong")
 {
 	mWindow.setFramerateLimit(60);
+	ball.setAngle();
+
 }
 
 void App::run()
@@ -12,8 +14,11 @@ void App::run()
 	{
 		processWindowEvents();
 		player1.move();
+		player1.createBoundaries();
 		player2.move();
+		player2.createBoundaries();
 		ball.move(player1, player2);
+		ball.createBoundaries();
 		render();
 	}
 }

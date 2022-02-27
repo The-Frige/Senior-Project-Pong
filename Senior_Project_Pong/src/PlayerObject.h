@@ -11,10 +11,13 @@ public:
 	friend class BallObject;
 	void move();
 	void show(sf::RenderWindow& mWindow);
-
+	void createBoundaries();
 private:
 	sf::RectangleShape player;
-	//sf::FloatRect rect;
+	sf::FloatRect part1;
+	sf::FloatRect part2;
+	sf::FloatRect part3;
 	int playerid;
 	void checkBoundaries();
+
 };

@@ -3,6 +3,7 @@
 PlayerObject::PlayerObject(int num, float x, float y, float xpos, float ypos) : player(sf::Vector2f(x, y)), playerid(num)
 {
 	player.setPosition(xpos, ypos);
+
 }
 
 void PlayerObject::move()
@@ -61,5 +62,24 @@ void PlayerObject::checkBoundaries()
 	{
 		player.move(0.0f, -7.5f);
 	}
+
+}
+
+void PlayerObject::createBoundaries()
+{
+	part1.top = player.getGlobalBounds().top;
+	part1.left = player.getGlobalBounds().left;
+	part1.height = player.getGlobalBounds().height/3;
+	part1.width = player.getGlobalBounds().width;
+
+	part2.top = part1.top + 25.0f;
+	part2.left = player.getGlobalBounds().left;
+	part2.height = 25.0f;
+	part2.width = 10.0f;
+
+	part3.top = part2.top + 25.0f;
+	part3.left = player.getGlobalBounds().left;
+	part3.height = 25.0f;
+	part3.width = 10.0f;
 
 }
