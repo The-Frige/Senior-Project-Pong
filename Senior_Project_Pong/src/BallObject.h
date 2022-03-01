@@ -17,10 +17,11 @@ private:
 	sf::FloatRect ballrect;
 	void borderReflect();
 	void paddleReflect(PlayerObject& p);
+	void scoring();
 
 	float speedx = 6.5f;
 	float speedy = 6.5f;
-	float angle;
+	float angle = 120;
 	int count;
 };
 

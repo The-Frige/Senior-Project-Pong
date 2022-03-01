@@ -17,12 +17,19 @@ void BallObject::move(PlayerObject& player1, PlayerObject& player2) //set to 4.5
 	paddleReflect(player1);
 	paddleReflect(player2);
 	borderReflect();
+	scoring();
 }
 
 void BallObject::show(sf::RenderWindow& mWindow)
 {
 	mWindow.draw(object);
 }
+
+void BallObject::createBoundaries()
+{
+	ballrect = object.getGlobalBounds();
+}
+
 
 void BallObject::borderReflect()
 {
@@ -93,10 +100,24 @@ void BallObject::paddleReflect(PlayerObject& p) //Figure out proper bouncing
 
 	}
 
-
 }
 
-void BallObject::createBoundaries()
+void BallObject::scoring()
 {
-	ballrect = object.getGlobalBounds();
+	if (object.getPosition().x <= 0.0f)
+	{
+		object.setPosition(400.0f, 300.0f);
+		scoresound.play();
+		std::cout << "Score!" << std::endl;
+		sf::sleep(sf::seconds(3.0f));
+	}
+	else if (object.getPosition().x >= 800.0f)
+	{
+		object.setPosition(400.0f, 300.0f);
+		scoresound.play();
+		std::cout << "Score!" << std::endl;
+		sf::sleep(sf::seconds(3.0f));
+	}
 }
+
+

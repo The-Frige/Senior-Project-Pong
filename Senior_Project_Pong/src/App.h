@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "Object.h"
 #include "PlayerObject.h"
 #include "BallObject.h"

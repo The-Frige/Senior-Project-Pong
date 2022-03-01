@@ -1,5 +1,7 @@
 #pragma once
+#include <iostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 class Object {
 public:
@@ -9,6 +11,8 @@ public:
 	virtual void move();
 
 protected:
+	sf::SoundBuffer buffer;
+	sf::Sound scoresound;
 	sf::RectangleShape object;
 	int id;
 };

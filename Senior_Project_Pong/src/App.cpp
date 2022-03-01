@@ -4,8 +4,7 @@ App::GameState App::gamestate = Multiplayer;
 App::App() : mWindow(sf::VideoMode(800, 600), "Pong")
 {
 	mWindow.setFramerateLimit(60);
-	ball.setAngle();
-
+	//ball.setAngle();
 }
 
 void App::run()
@@ -37,6 +36,7 @@ void App::processWindowEvents()
 			if(event.key.code == sf::Keyboard::Escape)
 			{
 				mWindow.close();
+				break;
 			}
 			//handleInput(event.key.code);
 			break;
