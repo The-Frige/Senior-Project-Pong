@@ -10,14 +10,14 @@ void BallObject::setAngle()
 	}
 }
 
-void BallObject::move(PlayerObject& player1, PlayerObject& player2) //set to 4.5f for both x and y
+void BallObject::move(PlayerObject& player1, PlayerObject& player2, ScoreObject& score1, ScoreObject& score2) //set to 4.5f for both x and y
 {
 	count = 0;
 	object.move(speedx * cos(angle), speedy * sin(angle));
 	paddleReflect(player1);
 	paddleReflect(player2);
 	borderReflect();
-	scoring();
+	scoring(score1, score2);
 }
 
 void BallObject::show(sf::RenderWindow& mWindow)
@@ -30,6 +30,31 @@ void BallObject::createBoundaries()
 	ballrect = object.getGlobalBounds();
 }
 
+void BallObject::displayScore()
+{
+	std::cout << p_score1 << std::endl;
+	std::cout << p_score2 << std::endl;
+}
+
+void BallObject::stopBall()
+{
+	speedx = 0.0f;
+	speedy = 0.0f;
+}
+
+void BallObject::resumeBall()
+{
+	speedx = 6.5f;
+	speedy = 6.5f;
+}
+
+void BallObject::resetScore(ScoreObject& s1, ScoreObject& s2)
+{
+	p_score1 = 0;
+	p_score2 = 0;
+	s1.updateScore(p_score1);
+	s2.updateScore(p_score2);
+}
 
 void BallObject::borderReflect()
 {
@@ -102,7 +127,7 @@ void BallObject::paddleReflect(PlayerObject& p) //Figure out proper bouncing
 
 }
 
-void BallObject::scoring()
+void BallObject::scoring(ScoreObject& s1, ScoreObject& s2)
 {
 	if (object.getPosition().x <= 0.0f)
 	{
@@ -110,6 +135,13 @@ void BallObject::scoring()
 		scoresound.play();
 		std::cout << "Score!" << std::endl;
 		sf::sleep(sf::seconds(3.0f));
+		p_score2++;
+		s2.updateScore(p_score2);
+		if(p_score1 == 3 || p_score2 == 3)
+		{
+			stopBall();
+		}
+
 	}
 	else if (object.getPosition().x >= 800.0f)
 	{
@@ -117,6 +149,12 @@ void BallObject::scoring()
 		scoresound.play();
 		std::cout << "Score!" << std::endl;
 		sf::sleep(sf::seconds(3.0f));
+		p_score1++;
+		s1.updateScore(p_score1);
+		if(p_score1 == 3 || p_score2 == 3)
+		{
+			stopBall();
+		}
 	}
 }
 

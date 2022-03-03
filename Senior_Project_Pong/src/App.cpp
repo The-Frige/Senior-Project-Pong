@@ -16,7 +16,7 @@ void App::run()
 		player1.createBoundaries();
 		player2.move();
 		player2.createBoundaries();
-		ball.move(player1, player2);
+		ball.move(player1, player2, player1score, player2score);
 		ball.createBoundaries();
 		render();
 	}
@@ -36,6 +36,26 @@ void App::processWindowEvents()
 			if(event.key.code == sf::Keyboard::Escape)
 			{
 				mWindow.close();
+				break;
+			}
+			else if (event.key.code == sf::Keyboard::P)
+			{
+				ball.stopBall();
+				break;
+			}
+			else if (event.key.code == sf::Keyboard::R)
+			{
+				ball.resumeBall();
+				break;
+			}
+			else if (event.key.code == sf::Keyboard::V)
+			{
+				ball.displayScore();
+				break;
+			}
+			else if (event.key.code == sf::Keyboard::M)
+			{
+				ball.resetScore(player1score, player2score);
 				break;
 			}
 			//handleInput(event.key.code);
@@ -72,6 +92,8 @@ void App::render()
 		player1.show(mWindow);
 		player2.show(mWindow); //Disable if gamestate is set to singleplayer
 		ball.show(mWindow);
+		player1score.show(mWindow);
+		player2score.show(mWindow);
 		mWindow.display();
 	}
 	//Debug code to see if gamestates are working
