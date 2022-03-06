@@ -20,6 +20,15 @@ void BallObject::move(PlayerObject& player1, PlayerObject& player2, ScoreObject&
 	scoring(score1, score2);
 }
 
+void BallObject::player1Move(PlayerObject& player1, ScoreObject& score2)
+{
+	count = 0;
+	object.move(speedx * cos(angle), speedy * sin(angle));
+	paddleReflect(player1);
+	borderReflect();
+	player1Scoring(score2);
+}
+
 void BallObject::show(sf::RenderWindow& mWindow)
 {
 	mWindow.draw(object);
@@ -155,6 +164,28 @@ void BallObject::scoring(ScoreObject& s1, ScoreObject& s2)
 		{
 			stopBall();
 		}
+	}
+}
+
+void BallObject::player1Scoring(ScoreObject& s2)
+{
+	if (object.getPosition().x <= 0.0f)
+	{
+		object.setPosition(400.0f, 300.0f);
+		scoresound.play();
+		std::cout << "Score!" << std::endl;
+		sf::sleep(sf::seconds(3.0f));
+		p_score2++;
+		s2.updateScore(p_score2);
+		if(p_score1 == 3 || p_score2 == 3)
+		{
+			stopBall();
+		}
+	}
+	else if (object.getPosition().x >= 800.0f)
+	{
+		speedx = -speedx;
+		std::cout << "Touching edges" << std::endl;
 	}
 }
 

@@ -13,6 +13,7 @@ public:
 
 	void show(sf::RenderWindow& mWindow);
 	void move(PlayerObject& player1, PlayerObject& player2, ScoreObject& score1, ScoreObject& score2);
+	void player1Move(PlayerObject& player1, ScoreObject& score2);
 	void setAngle();
 	void createBoundaries();
 	void displayScore(); // Debug function
@@ -27,10 +28,11 @@ private:
 	void borderReflect();
 	void paddleReflect(PlayerObject& p);
 	void scoring(ScoreObject& s1, ScoreObject& s2);
+	void player1Scoring(ScoreObject& s2);
 
 	float speedx = 6.5f; //set to 6.5
 	float speedy = 6.5f; //set to 6.5
-	float angle = 120;
+	float angle = 100;
 	int count;
 };
 

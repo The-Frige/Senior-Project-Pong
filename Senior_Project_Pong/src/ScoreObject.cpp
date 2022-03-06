@@ -4,9 +4,9 @@ ScoreObject::ScoreObject(float xpos, float ypos)
 {
 	sprite.setPosition(xpos, ypos);
 	textures.load(0, "score0.png");
-	textures.load(1, "score1.jpeg");
-	textures.load(2, "score2.jpeg");
-	textures.load(3, "score3.jpeg");
+	textures.load(1, "score1.png");
+	textures.load(2, "score2.png");
+	textures.load(3, "score3.png");
 	sprite.setTexture(textures.get(0));
 }
 
