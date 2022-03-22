@@ -1,10 +1,10 @@
 #include "App.h"
 
 App::GameState App::gamestate = NotStarted;
-App::App() : mWindow(sf::VideoMode(800, 600), "Pong")
+App::App() : mWindow(sf::VideoMode(800, 600), "Pong") //Sets window resolution and window name
 {
 	mWindow.setFramerateLimit(60);
-	//ball.setAngle();
+	//ball.setAngle(); //Sets the ball to a random angle at the start of the game
 }
 
 void App::run()
@@ -114,6 +114,7 @@ void App::render()
 		ball.show(mWindow);
 		player1score.show(mWindow);
 		player2score.show(mWindow);
+		line.show(mWindow);
 		mWindow.display();
 	}
 
@@ -129,6 +130,7 @@ void App::render()
 		player1.show(mWindow);
 		ball.show(mWindow);
 		player2score.show(mWindow);
+		line.show(mWindow);
 		mWindow.display();
 	}
 

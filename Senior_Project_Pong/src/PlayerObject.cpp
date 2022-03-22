@@ -6,9 +6,9 @@ PlayerObject::PlayerObject(int num, float x, float y, float xpos, float ypos) : 
 
 }
 
-void PlayerObject::move()
+void PlayerObject::move() //Player ids are there to determine which paddle takes what key
 {
-	if(playerid == 0)
+	if(playerid == 0) //player 1
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		{
@@ -21,7 +21,7 @@ void PlayerObject::move()
 			checkBoundaries();
 		}
 	}
-	else if(playerid == 1) //Disable if gamestate is set to single player
+	else if(playerid == 1) //Disable if gamestate is set to single player. also player 2
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
@@ -51,7 +51,7 @@ void PlayerObject::show(sf::RenderWindow& mWindow)
 	mWindow.draw(player);
 }
 
-void PlayerObject::checkBoundaries()
+void PlayerObject::checkBoundaries() //Makes sure the paddle doesn't go off screen
 {
 	if(player.getPosition().y <= -1.0f)
 	{
@@ -65,7 +65,7 @@ void PlayerObject::checkBoundaries()
 
 }
 
-void PlayerObject::createBoundaries()
+void PlayerObject::createBoundaries() //Creates the collision for the paddle
 {
 	part1.top = player.getGlobalBounds().top;
 	part1.left = player.getGlobalBounds().left;

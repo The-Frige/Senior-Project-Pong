@@ -13,14 +13,14 @@ void BallObject::setAngle()
 void BallObject::move(PlayerObject& player1, PlayerObject& player2, ScoreObject& score1, ScoreObject& score2) //set to 4.5f for both x and y
 {
 	count = 0;
-	object.move(speedx * cos(angle), speedy * sin(angle));
+	object.move(speedx * cos(angle), speedy * sin(angle)); // Using trig to calculate the ball angle
 	paddleReflect(player1);
 	paddleReflect(player2);
 	borderReflect();
 	scoring(score1, score2);
 }
 
-void BallObject::player1Move(PlayerObject& player1, ScoreObject& score2)
+void BallObject::player1Move(PlayerObject& player1, ScoreObject& score2) //Same as above function for singleplayer
 {
 	count = 0;
 	object.move(speedx * cos(angle), speedy * sin(angle));
@@ -34,12 +34,12 @@ void BallObject::show(sf::RenderWindow& mWindow)
 	mWindow.draw(object);
 }
 
-void BallObject::createBoundaries()
+void BallObject::createBoundaries() //Creates collision for ball
 {
 	ballrect = object.getGlobalBounds();
 }
 
-void BallObject::displayScore()
+void BallObject::displayScore() //Debug function that outputs score to console
 {
 	std::cout << p_score1 << std::endl;
 	std::cout << p_score2 << std::endl;
@@ -65,7 +65,7 @@ void BallObject::resetScore(ScoreObject& s1, ScoreObject& s2)
 	s2.updateScore(p_score2);
 }
 
-void BallObject::borderReflect()
+void BallObject::borderReflect() //Bounces the ball when it hits the border
 {
 	if (object.getPosition().y <= 0.0f)
 	{
@@ -82,31 +82,31 @@ void BallObject::borderReflect()
 
 }
 
-void BallObject::paddleReflect(PlayerObject& p) //Figure out proper bouncing
+void BallObject::paddleReflect(PlayerObject& p) //Reflects the ball when hitting a paddle
 {
 
-	if(ballrect.intersects(p.part1))
+	if(ballrect.intersects(p.part1)) //I had the bounding boxes(collision) of the paddles divided into three parts to make the ball reflection more randomized
 	{
-		if(p.playerid == 1)//p.player.getGlobalBounds().top - object.getGlobalBounds().width/2 -1
+		if(p.playerid == 1) //The player ids are for the sake of making sure the ball bounces back the correct direction.
 		{
 			angle = 360 - (rand() % 30+1);
-			object.setPosition(p.player.getPosition().x -10.0f , object.getPosition().y);
+			object.setPosition(p.player.getPosition().x -10.0f , object.getPosition().y); //Makes sure the ball doesn't get stuck in the paddle.
 			std:: cout << "Touching paddle part 1" << std::endl;
 		}
-		else if (p.playerid == 0)
+		else if (p.playerid == 0) //Ditto
 		{
 			angle = 360 -  (rand() % 30+1);
-			object.setPosition(p.player.getPosition().x +10.0f , object.getPosition().y);
+			object.setPosition(p.player.getPosition().x +10.0f , object.getPosition().y); //Ditto
 			std::cout << "Touching paddle part 1" << std::endl;
 		}
 
 	}
 	else if (ballrect.intersects(p.part2))
 	{
-		if(p.playerid == 1)//p.player.getGlobalBounds().top - object.getGlobalBounds().width/2 -1
+		if(p.playerid == 1)//Ditto
 		{
 			angle = 360 - (rand() % 60 + 1);
-			object.setPosition(p.player.getPosition().x -10.0f , object.getPosition().y);
+			object.setPosition(p.player.getPosition().x -10.0f , object.getPosition().y); //Look at comment at the first mention of this function for what it does.
 			std:: cout << "Touching paddle part 2" << std::endl;
 		}
 		else if (p.playerid == 0)
@@ -138,7 +138,7 @@ void BallObject::paddleReflect(PlayerObject& p) //Figure out proper bouncing
 
 void BallObject::scoring(ScoreObject& s1, ScoreObject& s2)
 {
-	if (object.getPosition().x <= 0.0f)
+	if (object.getPosition().x <= 0.0f) //Collision to see if ball hits the left side of the screen for scoring
 	{
 		object.setPosition(400.0f, 300.0f);
 		scoresound.play();
@@ -152,7 +152,7 @@ void BallObject::scoring(ScoreObject& s1, ScoreObject& s2)
 		}
 
 	}
-	else if (object.getPosition().x >= 800.0f)
+	else if (object.getPosition().x >= 800.0f) //Collision to see if ball hits the left side of the screen for scoring
 	{
 		object.setPosition(400.0f, 300.0f);
 		scoresound.play();
@@ -167,7 +167,7 @@ void BallObject::scoring(ScoreObject& s1, ScoreObject& s2)
 	}
 }
 
-void BallObject::player1Scoring(ScoreObject& s2)
+void BallObject::player1Scoring(ScoreObject& s2) //Same scoring function as above except for singleplayer. Only scores for left side. Right side gets bounced back
 {
 	if (object.getPosition().x <= 0.0f)
 	{
